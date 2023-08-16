@@ -31,6 +31,7 @@ app.post('/liqpay-callback', (req, res) => {
   } else {
     // Підпис невірний - оплата неуспішна
     console.log('Payment failed');
+    console.log(req.body);
     console.log('expectedSignature  '+ expectedSignature)
     console.log('signature  '+ signature)
     res.sendStatus(400);
