@@ -15,9 +15,13 @@ app.post('/liqpay-callback', (req, res) => {
   const privateKey = 'sandbox_LMwbu92lTGwpt5dUEgTC0SqaQyaWVebb5125YaK2';
 
   // Перевірка підпису
-  const signString = privateKey + data + privateKey;
-  const expectedSignature = crypto.createHash('sha1').update(signString).digest('base64');
+  // const signString = privateKey + data + privateKey;
+  // const expectedSignature = crypto.createHash('sha1').update(signString).digest('base64');
    
+  const signString = privateKey + data + privateKey;
+  const sha1Digest = CryptoJS.SHA1(signString);
+  const sexpectedSignature = sha1Digest.toString(CryptoJS.enc.Base64);
+
   if (expectedSignature === signature) {
     // Підпис вірний - оплата успішна
     console.log('Request Body: ', req.body);
