@@ -17,7 +17,7 @@ app.post('/liqpay-callback', (req, res) => {
   // Перевірка підпису
   const signString = privateKey + data + privateKey;
   const expectedSignature = crypto.createHash('sha1').update(signString).digest('base64');
-
+   console.log(req.body);
   if (expectedSignature === signature) {
     // Підпис вірний - оплата успішна
     console.log('Payment successful');
