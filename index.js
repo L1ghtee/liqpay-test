@@ -22,7 +22,7 @@ app.post('/liqpay-callback', (req, res) => {
    
   if (expectedSignature === signature) {
     // Підпис вірний - оплата успішна
-    console.log('req '+req.body);
+    console.log('req '+req);
     console.log('res '+res)
     console.log('Payment successful');
     console.log('expectedSignature  '+ expectedSignature)
@@ -33,7 +33,7 @@ app.post('/liqpay-callback', (req, res) => {
     // Підпис невірний - оплата неуспішна
     console.log('Payment failed');
     
-    console.log('req '+req.body);
+    console.log('req '+req);
     console.log('res '+res)
     console.log('expectedSignature  '+ expectedSignature)
     console.log('signature  '+ signature)
