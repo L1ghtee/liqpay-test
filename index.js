@@ -21,10 +21,12 @@ app.post('/liqpay-callback', (req, res) => {
   if (expectedSignature === signature) {
     // Підпис вірний - оплата успішна
     console.log('Payment successful');
+    res.send(data)
     res.sendStatus(200);
   } else {
     // Підпис невірний - оплата неуспішна
     console.log('Payment failed');
+    
     res.sendStatus(400);
   }
 });
