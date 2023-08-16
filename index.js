@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -14,19 +15,16 @@ app.post('/liqpay-callback', (req, res) => {
   const privateKey = 'sandbox_LMwbu92lTGwpt5dUEgTC0SqaQyaWVebb5125YaK2';
 
   // Перевірка підпису
-  const crypto = require('crypto');
   const signString = privateKey + data + privateKey;
   const expectedSignature = crypto.createHash('sha1').update(signString).digest('base64');
 
   if (expectedSignature === signature) {
     // Підпис вірний - оплата успішна
     console.log('Payment successful');
-    res.send(data)
     res.sendStatus(200);
   } else {
     // Підпис невірний - оплата неуспішна
     console.log('Payment failed');
-    
     res.sendStatus(400);
   }
 });
